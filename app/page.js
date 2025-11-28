@@ -22,16 +22,11 @@ const Home = () => {
 		<div
 			style={{
 				minHeight: '100vh',
-				background: 'linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%)'
+				background: 'linear-gradient(135deg, #f0f6fb 0%, #cceaf4 100%)'
 			}}
 		>
 			{/* Hero Section */}
-			<div style={{ padding: '80px 48px' }}>
-				{/* Logo Section */}
-				<div style={{ textAlign: 'center', marginBottom: '64px' }}>
-					<Logo />
-				</div>
-
+			<div style={{ padding: '80px 48px', marginTop: '56px' }}>
 				<Row
 					gutter={[64, 48]}
 					align="middle"
@@ -54,8 +49,8 @@ const Home = () => {
 											margin: 0
 										}}
 									>
-										Decentralized payment pages
-										<span style={{ color: '#ec348b', display: 'block' }}> for any service</span>
+										Trustless quotes, instant payments
+										<span style={{ color: '#6b9eff', display: 'block' }}>for any service</span>
 									</h1>
 									<p
 										style={{
@@ -75,7 +70,7 @@ const Home = () => {
 									{CHECKLIST_ITEMS.map((item, i) => (
 										<div key={i} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '16px' }}>
 											<CheckCircleTwoTone
-												twoToneColor="#ec348b"
+												twoToneColor="#6b9eff"
 												style={{ fontSize: '20px', marginTop: '4px', marginRight: '12px' }}
 											/>
 											<span
@@ -131,7 +126,7 @@ const Home = () => {
 							{/* Animated Visual Container */}
 							<div
 								style={{
-									background: 'linear-gradient(135deg, #ec348b 0%, #722ed1 100%)',
+									background: 'linear-gradient(135deg, #6b9eff 0%, #cceaf4 100%)',
 									borderRadius: '24px',
 									padding: '48px',
 									position: 'relative',
@@ -406,7 +401,7 @@ const Home = () => {
 									style={{
 										width: '64px',
 										height: '64px',
-										background: '#fde7f3',
+										background: '#e0f2ff',
 										borderRadius: '50%',
 										display: 'flex',
 										alignItems: 'center',
@@ -414,7 +409,7 @@ const Home = () => {
 										margin: '0 auto 24px'
 									}}
 								>
-									<CheckCircleTwoTone twoToneColor="#ec348b" style={{ fontSize: '24px' }} />
+									<CheckCircleTwoTone twoToneColor="#6b9eff" style={{ fontSize: '24px' }} />
 								</div>
 								<h3
 									style={{
@@ -488,7 +483,7 @@ const Home = () => {
 									style={{
 										width: '64px',
 										height: '64px',
-										background: '#f9f0ff',
+										background: '#e0f2ff',
 										borderRadius: '50%',
 										display: 'flex',
 										alignItems: 'center',
@@ -496,7 +491,7 @@ const Home = () => {
 										margin: '0 auto 24px'
 									}}
 								>
-									<CheckCircleTwoTone twoToneColor="#722ed1" style={{ fontSize: '24px' }} />
+									<CheckCircleTwoTone twoToneColor="#cceaf4" style={{ fontSize: '24px' }} />
 								</div>
 								<h3
 									style={{
@@ -575,7 +570,7 @@ const Home = () => {
 								<p style={{ color: '#6b7280', lineHeight: '1.6', marginBottom: '20px' }}>
 									Graphic designers, web developers, photographers, and content creators can collect project requirements and secure deposits before starting work.
 								</p>
-								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
+								<div style={{ fontSize: '14px', color: '#6b9eff', fontWeight: '500' }}>
 									"Logo Design - $500 MNEE" → Client pays upfront → Work begins
 								</div>
 							</div>
@@ -614,7 +609,7 @@ const Home = () => {
 								<p style={{ color: '#6b7280', lineHeight: '1.6', marginBottom: '20px' }}>
 									Landscapers, contractors, and home service providers can collect site details, photos, and secure project deposits through smart contracts.
 								</p>
-								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
+								<div style={{ fontSize: '14px', color: '#6b9eff', fontWeight: '500' }}>
 									"Garden Redesign - $2000 MNEE" → Site survey paid → Project starts
 								</div>
 							</div>
@@ -653,63 +648,12 @@ const Home = () => {
 								<p style={{ color: '#6b7280', lineHeight: '1.6', marginBottom: '20px' }}>
 									Tutoring, consulting, coaching, and personal services can collect client info and secure session payments without platform fees.
 								</p>
-								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
+								<div style={{ fontSize: '14px', color: '#6b9eff', fontWeight: '500' }}>
 									"Math Tutoring Package - $300 MNEE" → Student pays → Sessions begin
 								</div>
 							</div>
 						</Col>
 					</Row>
-				</div>
-
-				{/* CTA Section */}
-				<div
-					style={{ textAlign: 'center', padding: '80px 0', maxWidth: '1400px', margin: '0 auto' }}
-				>
-					<div
-						style={{
-							background: 'linear-gradient(135deg, #ec348b 0%, #722ed1 100%)',
-							borderRadius: '24px',
-							padding: '48px',
-							color: 'white'
-						}}
-					>
-						<h2
-							style={{
-								fontSize: '32px',
-								fontWeight: 'bold',
-								marginBottom: '16px',
-								color: 'white'
-							}}
-						>
-							Ready?
-						</h2>
-						<p
-							style={{
-								fontSize: '20px',
-								marginBottom: '32px',
-								opacity: 0.9,
-								color: 'white'
-							}}
-						>
-							Create your first offer link in minutes
-						</p>
-						<Button
-							size="large"
-							style={{
-								height: '48px',
-								padding: '0 32px',
-								fontSize: '18px',
-								fontWeight: '600',
-								background: 'white',
-								color: '#ec348b',
-								border: 'none',
-								borderRadius: '8px'
-							}}
-							onClick={() => router.push('/create')}
-						>
-							{siteConfig.cta.primary}
-						</Button>
-					</div>
 				</div>
 			</div>
 		</div>

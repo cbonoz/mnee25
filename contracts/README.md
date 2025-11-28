@@ -1,67 +1,142 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
+# OpenQuote Smart Contracts
 
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
+This is the smart contract layer for OpenQuote, a decentralized form and payment system for service businesses. The contracts are built using Hardhat with Solidity and tested using both Foundry and Node.js test runners.
 
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+## Overview
 
-## Project Overview
+### OpenQuoteContract
 
-This example project includes:
+The core `OpenQuoteContract.sol` manages:
+- **Offer Creation**: Service providers deploy contracts with offer details (title, description, service type, deliverables)
+- **Trustless Escrow**: MNEE token payments held in smart contract until service completion
+- **Deposit System**: Optional deposit amounts with remaining balance payment flow
+- **Client Requests**: Clients submit applications with messages and initial payments
+- **Completion & Withdrawal**: Service providers mark work complete and withdraw funds
+- **Emergency Withdraw**: Clients can reclaim funds if deadline passes without completion
+- **Rejection Handling**: Service providers can reject clients and issue refunds
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+## Project Structure
 
-## Usage
+```
+contracts/
+├── contracts/
+│   ├── OpenQuoteContract.sol      # Main offer contract
+│   └── MockERC20.sol              # Test token for development
+├── test/
+│   └── OpenQuoteContract.js       # Contract tests
+├── ignition/
+│   ├── modules/
+│   │   ├── OpenQuote.ts           # Deployment module
+│   │   └── OpenQuoteModule.ts     # Module configuration
+│   └── deployments/               # Deployment records
+├── scripts/
+│   └── send-op-tx.ts              # Utility scripts
+├── artifacts/                     # Compiled contracts & ABIs
+└── cache/                         # Build cache
+```
+
+## Setup & Installation
+
+Install dependencies:
+```shell
+cd contracts
+npm install
+# or
+yarn install
+```
+
+## Building & Deployment
+
+### Compile Contracts
+
+Build with Hardhat:
+```shell
+yarn build
+```
+
+### Apply Contract Changes to Frontend
+
+Update the frontend with latest contract ABIs:
+```shell
+yarn apply
+```
+
+This command compiles contracts and automatically copies ABI and type definitions to the app.
 
 ### Running Tests
 
-To run all the tests in the project, execute the following command:
-
+Run all tests:
 ```shell
+yarn test
+# or
 npx hardhat test
 ```
 
-You can also selectively run the Solidity or `node:test` tests:
-
+Run specific test suites:
 ```shell
-npx hardhat test solidity
-npx hardhat test nodejs
+npx hardhat test solidity    # Solidity tests only
+npx hardhat test nodejs      # Node.js/viem tests only
 ```
 
-### To update contract in app
+### Deploy Locally
 
-This contract project uses forge foundry for builds https://book.getfoundry.sh/reference/forge/forge-build
-
-Compiling contracts:
-`yarn build`
-
-Applying the contract changes
-`yarn apply` # compiles and copies the ABI contents to the active project automatically.
-
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
+Deploy to a local Hardhat node:
 ```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
+npx hardhat ignition deploy ignition/modules/OpenQuote.ts
 ```
 
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
+### Deploy to Sepolia Testnet
 
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
+Requires a funded wallet. Set your private key:
 ```shell
 npx hardhat keystore set SEPOLIA_PRIVATE_KEY
 ```
 
-After setting the variable, you can run the deployment with the Sepolia network:
-
+Then deploy:
 ```shell
 npx hardhat ignition deploy --network sepolia ignition/modules/OpenQuote.ts
 ```
+
+### Deploy to Mainnet
+
+For production deployments on mainnet:
+```shell
+npx hardhat ignition deploy --network mainnet ignition/modules/OpenQuote.ts
+```
+
+## Contract Configuration
+
+The `OpenQuoteContract` is instantiated with:
+- **title**: Service offer title
+- **description**: Detailed offer description
+- **serviceType**: Category of service
+- **deliverables**: What will be delivered
+- **amount**: Total payment amount (in MNEE tokens)
+- **deadline**: Unix timestamp for offer deadline
+- **paymentToken**: ERC20 token address for payments (MNEE)
+- **depositAmount**: Optional deposit requirement (0 for full upfront payment)
+
+## Key Features
+
+✅ **Decentralized Escrow**: No middleman - funds held in smart contract  
+✅ **Flexible Payment**: Support for deposits + remaining balance payment  
+✅ **Trustless Completion**: On-chain verification of service delivery  
+✅ **Emergency Refunds**: Automatic reclaim if deadline passes  
+✅ **Token Agnostic**: Any ERC20 token can be used (configured to MNEE)  
+✅ **Reentrancy Protection**: Uses OpenZeppelin's ReentrancyGuard  
+
+## Development
+
+All contracts use:
+- **Solidity ^0.8.28**
+- **OpenZeppelin Contracts** for security
+- **Hardhat** for development and testing
+- **Viem** for web3 interactions in tests
+
+## Security Considerations
+
+- All external calls are protected with `nonReentrant` modifier
+- Input validation on all state-changing functions
+- Proper access control with `onlyOwner` and `onlyClient` modifiers
+- Deposit amount must be less than total amount
+- Emergency withdraw only available after deadline

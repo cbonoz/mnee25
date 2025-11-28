@@ -28,7 +28,7 @@ export const CHAIN_MAP = {
     [sepolia.id]: sepolia,
     [mainnet.id]: mainnet
 };
-export const ACTIVE_CHAIN = sepolia;
+export const ACTIVE_CHAIN = mainnet;
 
 // Helper function to get explorer URL for current chain
 export const getExplorerUrl = (chainId = ACTIVE_CHAIN.id) => {

@@ -28,7 +28,7 @@ export default function Navigation() {
         !isOfferPage && {
             key: 'my-offers',
             label: 'My Offers',
-            icon: <HomeOutlined style={{ color: '#722ed1' }} />, // You can replace with a better icon
+            icon: <HomeOutlined style={{ color: '' }} />, // You can replace with a better icon
             path: '/my-offers'
         },
         {

@@ -1,14 +1,14 @@
 // OpenQuote Brand Color Palette
 export const colors = {
-  // Primary brand colors
-  primary: '#ec348b',
-  primaryLight: '#f158a0',
-  primaryDark: '#d12978',
+  // Primary brand colors - Updated to lavender/blue theme
+  primary: '#6b9eff',
+  primaryLight: '#8ab4ff',
+  primaryDark: '#4a7fd4',
   
-  // Secondary colors
-  secondary: '#722ed1',
-  secondaryLight: '#9254de',
-  secondaryDark: '#531dab',
+  // Secondary colors - Complementary palette
+  secondary: '#cceaf4',
+  secondaryLight: '#e0f2ff',
+  secondaryDark: '#9dcbf0',
   
   // Neutral colors
   white: '#ffffff',
@@ -30,22 +30,22 @@ export const colors = {
   success: '#52c41a',
   warning: '#faad14',
   error: '#ff4d4f',
-  info: '#1890ff',
+  info: '#6b9eff',
   
   // Background colors
   background: {
     primary: '#ffffff',
-    secondary: '#f5f5f5',
-    tertiary: '#fafafa',
-    gradient: 'linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%)',
-    gradientPrimary: 'linear-gradient(135deg, #ec348b 0%, #722ed1 100%)',
+    secondary: '#f5f9fd',
+    tertiary: '#f0f6fb',
+    gradient: 'linear-gradient(135deg, #f0f8ff 0%, #cceaf4 100%)',
+    gradientPrimary: 'linear-gradient(135deg, #6b9eff 0%, #cceaf4 100%)',
   },
   
   // Brand specific colors
   brand: {
-    pink: '#fde7f3', // Light pink background
-    purple: '#f9f0ff', // Light purple background
-    green: '#f6ffed', // Light green background
+    blue: '#cceaf4', // Light blue primary
+    lavender: '#e0f2ff', // Light lavender background
+    cyan: '#b3e5fc', // Light cyan accent
   }
 };
 
