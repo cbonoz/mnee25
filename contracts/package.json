@@ -1,0 +1,43 @@
+{
+  "name": "openquote",
+  "version": "0.0.1",
+  "description": "Forge",
+  "license": "MIT",
+  "scripts": {
+    "build": "npx hardhat compile",
+    "apply": "yarn build && node update-metadata.js",
+    "clean": "npx hardhat clean",
+    "test": "npx hardhat test",
+    "test:node": "npx hardhat test nodejs",
+    "test:solidity": "npx hardhat test solidity",
+    "deploy:openquote": "npx hardhat ignition deploy ignition/modules/OpenQuote.ts",
+    "deploy:openquote:local": "npx hardhat ignition deploy ignition/modules/OpenQuote.ts --network localhost",
+    "deploy:apollo:local": "npx hardhat ignition deploy ignition/modules/Apollo.ts --network localhost"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-ignition-viem": "^3.0.0",
+    "@nomicfoundation/hardhat-keystore": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^3.0.0",
+    "@nomicfoundation/hardhat-node-test-runner": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^3.0.0",
+    "@nomicfoundation/hardhat-viem": "^3.0.0",
+    "@nomicfoundation/hardhat-viem-assertions": "^3.0.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^10.0.10",
+    "ts-node": ">=8.0.0",
+    "typechain": "^8.2.0"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-ignition": "^3.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^6.1.0",
+    "@nomicfoundation/hardhat-toolbox-viem": "^5.0.0",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.3.0",
+    "hardhat": "^3.0.0",
+    "typescript": "^5.9.2",
+    "viem": "^2.33.3"
+  }
+}

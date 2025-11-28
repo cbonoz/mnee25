@@ -1,0 +1,1 @@
+MNEE 2025 hackathon
