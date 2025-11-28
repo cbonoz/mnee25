@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { OPENQUOTE_CONTRACT } from './metadata';
 import { formatDate, handleContractError } from '.';
-import { PYUSD_TOKEN_ADDRESS, ACTIVE_CHAIN } from '../constants';
+import { MNEE_TOKEN_ADDRESS, ACTIVE_CHAIN } from '../constants';
 
 // Deploy contract function - still needed for creating new offers with ethers
 export async function deployContract(
@@ -39,7 +39,7 @@ export async function deployContract(
             signer
         );
 
-        // Convert amount to Wei units (PYUSD uses 6 decimals like USDC)
+        // Convert amount to Wei units (MNEE uses 6 decimals)
         const amountInWei = ethers.utils.parseUnits(amount.toString(), 6);
         
         // Calculate deposit amount in Wei (if depositPercentage is provided)
@@ -53,12 +53,12 @@ export async function deployContract(
             'Description:', description,
             'Service Type:', serviceType,
             'Deliverables:', deliverables,
-            'Amount (PYUSD):', amount,
+            'Amount (MNEE):', amount,
             'Amount (Wei):', amountInWei.toString(),
             'Deposit Percentage:', depositPercentage,
             'Deposit Amount (Wei):', depositAmountInWei.toString(),
             'Deadline:', deadline,
-            'PYUSD Token Address:', PYUSD_TOKEN_ADDRESS
+            'MNEE Token Address:', MNEE_TOKEN_ADDRESS
         );
 
         // Deploy the contract with constructor parameters
@@ -69,7 +69,7 @@ export async function deployContract(
             deliverables,
             amountInWei,
             deadline,
-            PYUSD_TOKEN_ADDRESS,  // Use the PYUSD token address
+            MNEE_TOKEN_ADDRESS,  // Use the MNEE token address passed as constructor argument
             depositAmountInWei    // Add deposit amount parameter
         );
 

@@ -150,7 +150,7 @@ export default function OwnerOffersGrid({ offers, loading, showEmptyState = true
                                     <Space direction="vertical" size="small" style={{ width: '100%' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                             <Text strong style={{ color: '#52c41a', fontSize: '16px' }}>
-                                                ${offer.amount} PYUSD
+                                                ${offer.amount} MNEE
                                             </Text>
                                             <Tag color="blue" style={{ fontSize: '11px' }}>
                                                 {offer.serviceType}

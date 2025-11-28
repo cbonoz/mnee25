@@ -261,7 +261,7 @@ function OwnerActionsCard({ offerData, onUpdate }) {
                 {/* Contract Balance */}
                 <div style={{ textAlign: 'center' }}>
                     <Title level={4} style={{ margin: 0 }}>
-                        Contract Balance: <Text strong style={{ fontSize: '18px' }}>{contractBalance} PYUSD</Text>
+                        Contract Balance: <Text strong style={{ fontSize: '18px' }}>{contractBalance} MNEE</Text>
                     </Title>
                 </div>
 
@@ -466,7 +466,7 @@ function OwnerActionsCard({ offerData, onUpdate }) {
                             loading={loading}
                             style={{ backgroundColor: '#722ed1', borderColor: '#722ed1', color: 'white', minWidth: 180 }}
                         >
-                            Withdraw Funds ({contractBalance} PYUSD)
+                            Withdraw Funds ({contractBalance} MNEE)
                         </Button>
                     )}
 

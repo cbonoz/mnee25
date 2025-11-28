@@ -10,7 +10,7 @@ import {
     http
 } from 'viem';
 import { handleContractError, formatDate, executeApprovalWithRetry } from '.';
-import { PYUSD_TOKEN_ADDRESS, ACTIVE_CHAIN } from '../constants';
+import { MNEE_TOKEN_ADDRESS, ACTIVE_CHAIN } from '../constants';
 import { OPENQUOTE_CONTRACT } from './metadata';
 
 
@@ -109,7 +109,7 @@ export const getMetadata = async (walletClient, address) => {
             };
         }
 
-        // Format amount from Wei (6 decimals for PYUSD)
+        // Format amount from Wei (6 decimals for MNEE)
         const formattedAmount = formatUnits(metadata.amount, 6);
         console.log('Formatted amount:', formattedAmount);
         
@@ -242,9 +242,9 @@ export const requestAndFundOffer = async (walletClient, contractAddress, message
         
         const amount = metadata.amount;
 
-        // First approve PYUSD spending
+        // First approve MNEE spending
         const approvalTx = await walletClient.writeContract({
-            address: PYUSD_TOKEN_ADDRESS,
+            address: MNEE_TOKEN_ADDRESS,
             abi: [
                 {
                     "name": "approve",

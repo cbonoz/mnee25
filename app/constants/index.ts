@@ -42,10 +42,10 @@ export const getExplorerLink = (address, type = 'address', chainId = ACTIVE_CHAI
     return `${baseUrl}/${type}/${address}`;
 };
 
-// PYUSD token address (replace with actual addresses)
-export const PYUSD_TOKEN_ADDRESS = process.env.NEXT_PUBLIC_NETWORK === 'mainnet'
-    ? '0x6c3ea9036406852006290770BEdFcAbA0e23A0e8' // mainnet address
-    : '0xCaC524BcA292aaade2DF8A05cC58F0a65B1B3bB9'; // testnet address (default)
+// MNEE token address from environment configuration
+export const MNEE_TOKEN_ADDRESS = process.env.NEXT_PUBLIC_MNEE_TOKEN_ADDRESS || '0x8ccedbAe4916b79da7F3F612EfB2EB93A2bFD6cF';
+
+// MNEE token is the sole payment token for the platform
 
 export const IPFS_BASE_URL = 'https://ipfs.example.com';
 

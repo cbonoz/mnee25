@@ -120,7 +120,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
             setIsTransactionPending(true);
             setModalVisible(false); // Close the modal while transaction is processing
             setTransactionStep('approval');
-            message.loading('Step 1: Approving PYUSD tokens...', 0);
+            message.loading('Step 1: Approving MNEE tokens...', 0);
             // Use the new combined method - request and fund in one transaction
             const txHash = await requestAndFundOffer(walletClient, offerData.contractAddress, values.message);
             setTransactionStep('complete');
@@ -199,7 +199,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                                 Processing Transaction
                             </Title>
                             <Text type="secondary">
-                                {transactionStep === 'approval' && 'Approving PYUSD tokens...'}
+                                {transactionStep === 'approval' && 'Approving MNEE tokens...'}
                                 {transactionStep === 'funding' && 'Submitting request and payment...'}
                                 {transactionStep === 'complete' && 'Transaction complete!'}
                             </Text>
@@ -221,7 +221,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                                 Request Submitted & Payment Sent!
                             </Title>
                             <Text type="secondary">
-                                Your request has been submitted and ${offerData.amount} PYUSD has been sent to the contract.
+                                Your request has been submitted and ${offerData.amount} MNEE has been sent to the contract.
                             </Text>
                         </div>
                         <div style={{ backgroundColor: '#f6ffed', padding: '12px', borderRadius: '6px' }}>
@@ -275,7 +275,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                 <Space direction="vertical" style={{ width: '100%' }} size="large">
                     <div style={{ textAlign: 'center' }}>
                         <Title level={3} style={{ color: '#ec348b', margin: 0 }}>
-                            ${offerData.amount} PYUSD
+                            ${offerData.amount} MNEE
                         </Title>
                         <Text type="secondary">Price</Text>
                     </div>
@@ -315,7 +315,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                             disabled={!offerData.isActive}
                             icon={<WalletOutlined />}
                         >
-                            {offerData.isActive ? `Request & Pay ${offerData.amount} PYUSD` : 'Offer Inactive'}
+                            {offerData.isActive ? `Request & Pay ${offerData.amount} MNEE` : 'Offer Inactive'}
                         </Button>
                     )}
 
@@ -353,7 +353,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
 
             {/* Request Modal - Simplified to just message */}
             <Modal
-                title={`Request & Pay for This Offer (${offerData.amount} PYUSD)`}
+                title={`Request & Pay for This Offer (${offerData.amount} MNEE)`}
                 open={modalVisible}
                 onCancel={() => setModalVisible(false)}
                 footer={null}
@@ -361,11 +361,11 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
             >
                 <div style={{ marginBottom: 24 }}>
                     <Paragraph>
-                        Submit your application message. Upon confirmation, you'll pay <strong>{offerData.amount} PYUSD</strong> which 
+                        Submit your application message. Upon confirmation, you'll pay <strong>{offerData.amount} MNEE</strong> which 
                         will be held in escrow until the work is completed.
                     </Paragraph>
                     <Paragraph type="secondary">
-                        <strong>Important:</strong> Make sure you have at least {offerData.amount} PYUSD in your wallet. 
+                        <strong>Important:</strong> Make sure you have at least {offerData.amount} MNEE in your wallet. 
                         Include your contact details in the message below.
                     </Paragraph>
                 </div>
@@ -405,7 +405,7 @@ My contact details:
                             icon={<WalletOutlined />}
                             onClick={() => console.log('Submit button clicked')}
                         >
-                            Submit Request & Pay {offerData.amount} PYUSD
+                            Submit Request & Pay {offerData.amount} MNEE
                         </Button>
                     </Form.Item>
                 </Form>

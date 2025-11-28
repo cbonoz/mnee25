@@ -19,7 +19,7 @@ export default function About() {
         },
         {
             icon: <DollarOutlined style={{ fontSize: '24px', color: '#52c41a' }} />,
-            title: 'Stablecoin Payments (PYUSD)',
+            title: 'MNEE Token Payments',
             description: 'Accept stablecoin payments for deposits, milestones, or offers—no volatility, no banking fees.'
         },
         {
@@ -136,7 +136,7 @@ export default function About() {
                         <ol style={{ fontSize: '18px', color: '#444', lineHeight: '2', paddingLeft: '24px' }}>
                             <li>Connect wallet via Dynamic to authenticate as client or service provider.</li>
                             <li>Client submits a service request form with payment details.</li>
-                            <li>Smart contract is deployed via Hardhat; PYUSD payment is deposited.</li>
+                            <li>Smart contract is deployed via Hardhat; MNEE payment is deposited.</li>
                             <li>Service provider reviews request and generates an offer.</li>
                             <li>Client approves; contract releases payment automatically.</li>
                             <li>Both parties receive confirmation and transaction records on-chain.</li>
@@ -176,7 +176,7 @@ export default function About() {
                             <ul style={{ paddingLeft: '20px', color: '#666' }}>
                                 <li>Dynamic: wallet-based authentication for clients and providers</li>
                                 <li>Hardhat: smart contract development, deployment, and on-chain automation</li>
-                                <li>PYUSD: stablecoin payments for deposits, milestones, and offers</li>
+                                <li>MNEE: token payments for deposits, milestones, and offers</li>
                                 <li>Vercel: open-source hosting and deployment</li>
                             </ul>
                         </Card>
@@ -201,7 +201,7 @@ export default function About() {
                     <Paragraph style={{ fontSize: '16px', color: '#666', marginBottom: '24px' }}>
                         {APP_NAME} is open source and built for the hackathon community. Future enhancements could include:
                         <ul style={{ textAlign: 'left', margin: '16px auto', maxWidth: '600px', color: '#666' }}>
-                            <li>Recurring subscriptions or retainers (automated PYUSD payments)</li>
+                            <li>Recurring subscriptions or retainers (automated MNEE payments)</li>
                             <li>Cross-chain support for broader ecosystem compatibility</li>
                             <li>Document attachment verification with decentralized storage</li>
                             <li>Multi-party escrow and milestone-based releases</li>

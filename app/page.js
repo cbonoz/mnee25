@@ -11,7 +11,7 @@ import { colors } from './theme/colors';
 
 const CHECKLIST_ITEMS = [
 	'One-click form collection and payments for anyone',
-	'Decentralized, trustless payments using PYUSD stablecoin',
+	'Decentralized, trustless payments using MNEE tokens',
 	'Wallet-based authentication via Dynamic - no accounts needed'
 ];
 
@@ -214,7 +214,7 @@ const Home = () => {
 													animationDelay: '1s'
 												}}
 											>
-												💰 PYUSD
+												💰 MNEE
 											</div>
 											<div
 												style={{
@@ -465,7 +465,7 @@ const Home = () => {
 										marginBottom: '16px'
 									}}
 								>
-									PYUSD Stablecoin Payments
+									MNEE Token Payments
 								</h3>
 								<p style={{ color: '#6b7280', lineHeight: '1.6' }}>
 									Accept stable payments for deposits, milestones, or offers without volatility or banking fees
@@ -576,7 +576,7 @@ const Home = () => {
 									Graphic designers, web developers, photographers, and content creators can collect project requirements and secure deposits before starting work.
 								</p>
 								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
-									"Logo Design - $500 PYUSD" → Client pays upfront → Work begins
+									"Logo Design - $500 MNEE" → Client pays upfront → Work begins
 								</div>
 							</div>
 						</Col>
@@ -615,7 +615,7 @@ const Home = () => {
 									Landscapers, contractors, and home service providers can collect site details, photos, and secure project deposits through smart contracts.
 								</p>
 								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
-									"Garden Redesign - $2000 PYUSD" → Site survey paid → Project starts
+									"Garden Redesign - $2000 MNEE" → Site survey paid → Project starts
 								</div>
 							</div>
 						</Col>
@@ -654,7 +654,7 @@ const Home = () => {
 									Tutoring, consulting, coaching, and personal services can collect client info and secure session payments without platform fees.
 								</p>
 								<div style={{ fontSize: '14px', color: '#ec348b', fontWeight: '500' }}>
-									"Math Tutoring Package - $300 PYUSD" → Student pays → Sessions begin
+									"Math Tutoring Package - $300 MNEE" → Student pays → Sessions begin
 								</div>
 							</div>
 						</Col>

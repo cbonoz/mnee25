@@ -74,7 +74,7 @@ const OfferDetailsCard = React.memo(function OfferDetailsCard({ offerData, onDea
                         title="Amount"
                         value={offerData.amount}
                         prefix={<DollarOutlined />}
-                        suffix="PYUSD"
+                        suffix="MNEE"
                         precision={2}
                     />
                 </Col>

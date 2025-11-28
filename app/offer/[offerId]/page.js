@@ -200,7 +200,7 @@ export default function OfferPage({ params }) {
                                     <Col xs={12} sm={6}>
                                         <div style={{ color: 'white' }}>
                                             <div style={{ fontSize: 15, opacity: 0.7 }}>Amount</div>
-                                            <div style={{ fontSize: 22, fontWeight: 700 }}>{offerData.amount} PYUSD</div>
+                                            <div style={{ fontSize: 22, fontWeight: 700 }}>{offerData.amount} MNEE</div>
                                         </div>
                                     </Col>
                                     <Col xs={12} sm={6}>
