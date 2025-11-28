@@ -6,6 +6,7 @@ import { Button, Spin, Row, Col, Space } from 'antd';
 import { APP_DESC, APP_NAME, siteConfig } from './constants';
 import { CheckCircleTwoTone } from '@ant-design/icons';
 import Logo from './lib/Logo';
+import { HeroAnimation } from './lib/HeroAnimation';
 import { useRouter } from 'next/navigation';
 import { colors } from './theme/colors';
 
@@ -52,7 +53,8 @@ const Home = () => {
 										Trustless quotes, instant payments
 										<span style={{ color: '#6b9eff', display: 'block' }}>for any service</span>
 									</h1>
-									<p
+									{/* Temp removal */}
+									{/* <p
 										style={{
 											fontSize: '22px',
 											color: '#6b7280',
@@ -62,7 +64,7 @@ const Home = () => {
 										}}
 									>
 										{APP_DESC}
-									</p>
+									</p> */}
 								</div>
 
 								{/* Feature List */}
@@ -120,245 +122,12 @@ const Home = () => {
 						</div>
 					</Col>
 
-					{/* Right Side - Visual */}
-					<Col xs={24} lg={12}>
-						<div style={{ textAlign: 'center', position: 'relative' }}>
-							{/* Animated Visual Container */}
-							<div
-								style={{
-									background: 'linear-gradient(135deg, #6b9eff 0%, #cceaf4 100%)',
-									borderRadius: '24px',
-									padding: '48px',
-									position: 'relative',
-									overflow: 'hidden',
-									minHeight: '500px',
-									display: 'flex',
-									flexDirection: 'column',
-									alignItems: 'center',
-									justifyContent: 'center'
-								}}
-							>
-								{/* Background Pattern */}
-								<div
-									style={{
-										position: 'absolute',
-										top: 0,
-										left: 0,
-										right: 0,
-										bottom: 0,
-										backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-										opacity: 0.2
-									}}
-								/>
-								
-								{/* Main Visual Content */}
-								<div style={{ position: 'relative', zIndex: 1, color: 'white', textAlign: 'center' }}>
-									{/* Central Animation */}
-									<div style={{ marginBottom: '40px' }}>
-										{/* Animated Contract */}
-										<div
-											style={{
-												width: '140px',
-												height: '140px',
-												background: 'rgba(255, 255, 255, 0.15)',
-												borderRadius: '20px',
-												display: 'flex',
-												alignItems: 'center',
-												justifyContent: 'center',
-												margin: '0 auto 24px',
-												animation: 'pulse 2s ease-in-out infinite',
-												border: '2px solid rgba(255, 255, 255, 0.3)'
-											}}
-										>
-											<svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<path d="M14 2V8H20" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<path d="M16 13H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<path d="M16 17H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-												<path d="M10 9H9H8" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-											</svg>
-										</div>
-
-										{/* Floating Elements */}
-										<div style={{ position: 'relative', height: '80px' }}>
-											<div
-												style={{
-													position: 'absolute',
-													top: '10px',
-													left: '20%',
-													background: 'rgba(255, 255, 255, 0.2)',
-													padding: '8px 12px',
-													borderRadius: '15px',
-													fontSize: '12px',
-													animation: 'float 3s ease-in-out infinite',
-													animationDelay: '0s'
-												}}
-											>
-												📝 Smart Form
-											</div>
-											<div
-												style={{
-													position: 'absolute',
-													top: '40px',
-													right: '20%',
-													background: 'rgba(255, 255, 255, 0.2)',
-													padding: '8px 12px',
-													borderRadius: '15px',
-													fontSize: '12px',
-													animation: 'float 3s ease-in-out infinite',
-													animationDelay: '1s'
-												}}
-											>
-												💰 MNEE
-											</div>
-											<div
-												style={{
-													position: 'absolute',
-													top: '0px',
-													right: '10%',
-													background: 'rgba(255, 255, 255, 0.2)',
-													padding: '8px 12px',
-													borderRadius: '15px',
-													fontSize: '12px',
-													animation: 'float 3s ease-in-out infinite',
-													animationDelay: '2s'
-												}}
-											>
-												🔗 Blockchain
-											</div>
-										</div>
-									</div>
-
-									{/* Process Flow */}
-									<div style={{ marginBottom: '32px' }}>
-										<h3 style={{ color: 'white', fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>
-											Simple 3-Step Process
-										</h3>
-										<div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '300px', margin: '0 auto' }}>
-											<div style={{ textAlign: 'center', opacity: 0.9 }}>
-												<div
-													style={{
-														width: '50px',
-														height: '50px',
-														background: 'rgba(255, 255, 255, 0.2)',
-														borderRadius: '50%',
-														display: 'flex',
-														alignItems: 'center',
-														justifyContent: 'center',
-														margin: '0 auto 8px',
-														fontSize: '20px'
-													}}
-												>
-													�
-												</div>
-												<div style={{ fontSize: '11px', fontWeight: '500' }}>Create</div>
-											</div>
-											<div style={{ color: 'white', fontSize: '16px', animation: 'slideRight 2s ease-in-out infinite' }}>→</div>
-											<div style={{ textAlign: 'center', opacity: 0.9 }}>
-												<div
-													style={{
-														width: '50px',
-														height: '50px',
-														background: 'rgba(255, 255, 255, 0.2)',
-														borderRadius: '50%',
-														display: 'flex',
-														alignItems: 'center',
-														justifyContent: 'center',
-														margin: '0 auto 8px',
-														fontSize: '20px'
-													}}
-												>
-													🤝
-												</div>
-												<div style={{ fontSize: '11px', fontWeight: '500' }}>Submit</div>
-											</div>
-											<div style={{ color: 'white', fontSize: '16px', animation: 'slideRight 2s ease-in-out infinite', animationDelay: '0.5s' }}>→</div>
-											<div style={{ textAlign: 'center', opacity: 0.9 }}>
-												<div
-													style={{
-														width: '50px',
-														height: '50px',
-														background: 'rgba(255, 255, 255, 0.2)',
-														borderRadius: '50%',
-														display: 'flex',
-														alignItems: 'center',
-														justifyContent: 'center',
-														margin: '0 auto 8px',
-														fontSize: '20px'
-													}}
-												>
-													✅
-												</div>
-												<div style={{ fontSize: '11px', fontWeight: '500' }}>Pay</div>
-											</div>
-										</div>
-									</div>
-
-									{/* Feature Badges */}
-									<div style={{ display: 'flex', justifyContent: 'center', gap: '12px', flexWrap: 'wrap' }}>
-										<div
-											style={{
-												background: 'rgba(255, 255, 255, 0.15)',
-												padding: '6px 12px',
-												borderRadius: '15px',
-												fontSize: '12px',
-												fontWeight: '500',
-												animation: 'glow 2s ease-in-out infinite alternate'
-											}}
-										>
-											🔐 Secure
-										</div>
-										<div
-											style={{
-												background: 'rgba(255, 255, 255, 0.15)',
-												padding: '6px 12px',
-												borderRadius: '15px',
-												fontSize: '12px',
-												fontWeight: '500',
-												animation: 'glow 2s ease-in-out infinite alternate',
-												animationDelay: '0.5s'
-											}}
-										>
-											⚡ Fast
-										</div>
-										<div
-											style={{
-												background: 'rgba(255, 255, 255, 0.15)',
-												padding: '6px 12px',
-												borderRadius: '15px',
-												fontSize: '12px',
-												fontWeight: '500',
-												animation: 'glow 2s ease-in-out infinite alternate',
-												animationDelay: '1s'
-											}}
-										>
-											🌐 Decentralized
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</Col>
-				</Row>
-
-				<style jsx>{`
-					@keyframes float {
-						0%, 100% { transform: translateY(0px); }
-						50% { transform: translateY(-15px); }
-					}
-					@keyframes pulse {
-						0%, 100% { transform: scale(1); }
-						50% { transform: scale(1.05); }
-					}
-					@keyframes slideRight {
-						0%, 100% { transform: translateX(0px); opacity: 1; }
-						50% { transform: translateX(5px); opacity: 0.7; }
-					}
-					@keyframes glow {
-						0% { box-shadow: 0 0 5px rgba(255, 255, 255, 0.2); }
-						100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
-					}
-				`}</style>
+				{/* Right Side - Visual */}
+				<Col xs={24} lg={12}>
+					<HeroAnimation />
+				</Col>
+			</Row>
+						
 
 				{/* Features Section */}
 				<div style={{ padding: '80px 0', maxWidth: '1800px', margin: '0 auto' }}>
