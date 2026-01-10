@@ -65,7 +65,7 @@ export const getMetadata = async (walletClient, address) => {
                 functionName: 'getOfferMetadata',
             }),
             new Promise((_, reject) => 
-                setTimeout(() => reject(new Error('Metadata read timeout after 10 seconds')), 10000)
+                setTimeout(() => reject(new Error('Offer details fetch timeout after 10 seconds')), 10000)
             )
         ]);
         
@@ -245,6 +245,10 @@ export const requestAndFundOffer = async (walletClient, contractAddress, message
         });
         
         const amount = metadata.amount;
+        
+        // Log the amount in human-readable format (MNEE uses 6 decimals)
+        const formattedAmount = formatUnits(amount, 6);
+        console.log(`Approval amount: ${formattedAmount} MNEE (${amount} in smallest units)`);
 
         // First approve MNEE spending
         const approvalTx = await walletClient.writeContract({

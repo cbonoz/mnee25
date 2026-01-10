@@ -38,9 +38,11 @@ import {
     CheckCircleOutlined,
     UserOutlined,
     WalletOutlined,
-    MessageOutlined
+    MessageOutlined,
+    LinkOutlined
 } from '@ant-design/icons';
 import { requestOffer, acceptOffer, fundContract, getOfferRequests, requestAndFundOffer } from '../../util/appContractViem';
+import { getExplorerLink } from '../../constants';
 import { useWalletClient } from '../../hooks/useWalletClient';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 
@@ -54,6 +56,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
     const [userApplication, setUserApplication] = useState(null);
     const [hasApplied, setHasApplied] = useState(false);
     const [isApproved, setIsApproved] = useState(false);
+    const [transactionError, setTransactionError] = useState(null);
     const [form] = Form.useForm();
     // Transaction states
     const [isTransactionPending, setIsTransactionPending] = useState(false);
@@ -117,6 +120,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
         }
         try {
             setLoading(true);
+            setTransactionError(null);
             setIsTransactionPending(true);
             setModalVisible(false); // Close the modal while transaction is processing
             setTransactionStep('approval');
@@ -138,10 +142,38 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                 if (onUpdate) onUpdate();
             }, 10000);
             setRefreshTimeout(timeout);
-    } catch (error) {
+        } catch (error) {
             console.error('Error submitting request and payment:', error);
             message.destroy(); // Clear any loading messages
-            message.error(`Failed to complete transaction: ${error.message}`);
+            const errorMsg = error.message || error.toString();
+            setTransactionError(errorMsg);
+            
+            // Show error modal
+            Modal.error({
+                title: 'Transaction Failed',
+                content: (
+                    <div>
+                        <Paragraph>
+                            <strong>Error:</strong> {errorMsg}
+                        </Paragraph>
+                        <Paragraph type="secondary" style={{ marginTop: 16 }}>
+                            Please ensure:
+                        </Paragraph>
+                        <ul style={{ paddingLeft: 20 }}>
+                            <li>Your wallet is fully connected and unlocked</li>
+                            <li>You have authorized this site to access your wallet</li>
+                            <li>You have sufficient balance for both the transaction and gas fees</li>
+                            <li>Your wallet is on the correct network</li>
+                        </ul>
+                        <Paragraph type="secondary" style={{ marginTop: 16 }}>
+                            <strong>Solution:</strong> Try disconnecting and reconnecting your wallet, then try again.
+                        </Paragraph>
+                    </div>
+                ),
+                width: 600,
+                okText: 'Close'
+            });
+            
             setModalVisible(true); // Reopen modal if there was an error
         } finally {
             setLoading(false);
@@ -334,10 +366,10 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                     <Button 
                         size="large" 
                         block
-                        onClick={handleContactOwner}
-                        icon={<UserOutlined />}
+                        onClick={() => window.open(getExplorerLink(offerData.owner, 'address'), '_blank')}
+                        icon={<LinkOutlined />}
                     >
-                        Contact Owner
+                        View Owner on Scanner
                     </Button>
 
                     <Divider />

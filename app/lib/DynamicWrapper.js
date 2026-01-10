@@ -16,15 +16,11 @@ import { http } from 'viem';
 import { sepolia, mainnet } from 'viem/chains';
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
-// Get the appropriate chains based on environment
-const getSupportedChains = (isMain) => {
-  return isMain ? [mainnet] : [sepolia];
-};
-
 // Create config that respects the environment
 const wagmiConfig = (() => {
   const isMain = process.env.NEXT_PUBLIC_NETWORK === 'mainnet';
   const defaultChainId = isMain ? mainnet.id : sepolia.id;
+  console.log("Using chain:", defaultChainId);
   
   // Always include both chains in Wagmi config for proper connector support
   // but set the default to the appropriate one

@@ -36,9 +36,11 @@ export default function CreateOffer() {
         currentStep,
         offerData,
         contractAddress,
+        deploymentError,
         handleNext,
         handlePrevious,
         handleCreateOffer,
+        handleRetry,
         handleCreateAnother,
         handleViewDashboard
     } = useCreateOffer();
@@ -59,6 +61,8 @@ export default function CreateOffer() {
                         loading={loading}
                         offerData={offerData}
                         onDeploy={handleCreateOffer}
+                        deploymentError={deploymentError}
+                        onRetry={handleRetry}
                     />
                 );
             case 3:

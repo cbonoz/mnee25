@@ -14,6 +14,7 @@ export default function useCreateOffer() {
     const [currentStep, setCurrentStep] = useState(0);
     const [offerData, setOfferData] = useState({});
     const [contractAddress, setContractAddress] = useState(null);
+    const [deploymentError, setDeploymentError] = useState(null);
     const router = useRouter();
     const signer = useEthersSigner();
     const { address: walletAddress } = useWalletAddress();
@@ -36,6 +37,7 @@ export default function useCreateOffer() {
     const handleCreateOffer = async () => {
         try {
             setLoading(true);
+            setDeploymentError(null); // Clear previous errors
             const values = await form.validateFields();
             const finalOfferData = { ...offerData, ...values };
             
@@ -43,12 +45,16 @@ export default function useCreateOffer() {
 
             // Check wallet connection first
             if (!walletAddress) {
-                message.error('Please connect your wallet before deploying the contract');
+                const err = 'Please connect your wallet before deploying the contract';
+                setDeploymentError(err);
+                message.error(err);
                 return;
             }
 
             if (!signer) {
-                message.error('Wallet connection error. Please try reconnecting your wallet');
+                const err = 'Wallet connection error. Please try reconnecting your wallet';
+                setDeploymentError(err);
+                message.error(err);
                 return;
             }
 
@@ -56,7 +62,9 @@ export default function useCreateOffer() {
             try {
                 await ensureCorrectNetwork();
             } catch (networkError) {
-                message.error(`Network Error: ${networkError.message}`);
+                const err = `Network Error: ${networkError.message}`;
+                setDeploymentError(err);
+                message.error(err);
                 return;
             }
 
@@ -101,12 +109,16 @@ export default function useCreateOffer() {
                 const updatedOffers = [...storedOffers, newOffer];
                 localStorage.setItem('userOffers', JSON.stringify(updatedOffers));
             } else {
-                throw new Error('Contract deployment failed - no address returned');
+                const err = 'Contract deployment failed - no address returned';
+                setDeploymentError(err);
+                throw new Error(err);
             }
             
         } catch (error) {
+            const errorMsg = error.message || error.toString();
             console.error('Error creating offer:', error);
-            message.error(`Failed to create offer: ${error.message}`);
+            setDeploymentError(errorMsg);
+            message.error(errorMsg);
         } finally {
             setLoading(false);
         }
@@ -121,6 +133,19 @@ export default function useCreateOffer() {
         router.push('/create');
     };
 
+    const handleRetry = async () => {
+        try {
+            // Force ensure correct network before retry
+            await ensureCorrectNetwork();
+            // Give network a moment to settle
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Retry deployment
+            await handleCreateOffer();
+        } catch (error) {
+            message.error(`Retry failed: ${error.message}`);
+        }
+    };
+
     const handleViewDashboard = () => {
         router.push('/dashboard');
     };
@@ -132,9 +157,11 @@ export default function useCreateOffer() {
         offerData,
         contractAddress,
         walletAddress,
+        deploymentError,
         handleNext,
         handlePrevious,
         handleCreateOffer,
+        handleRetry,
         handleCreateAnother,
         handleViewDashboard,
         setCurrentStep

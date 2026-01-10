@@ -7,9 +7,11 @@ import {
     Typography, 
     Divider, 
     Spin,
-    Alert
+    Alert,
+    Modal,
+    Space
 } from 'antd';
-import { PlusOutlined, WalletOutlined } from '@ant-design/icons';
+import { PlusOutlined, WalletOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { useWalletAddress } from '../../hooks/useWalletAddress';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 
@@ -19,10 +21,13 @@ const { Title, Paragraph, Text } = Typography;
 export default function DeployStepContent({ 
     loading, 
     offerData, 
-    onDeploy 
+    onDeploy,
+    deploymentError,
+    onRetry
 }) {
     const { address: walletAddress } = useWalletAddress();
     const [showWalletError, setShowWalletError] = useState(false);
+    const [isRetrying, setIsRetrying] = useState(false);
 
     const handleDeploy = () => {
         if (!walletAddress) {
@@ -32,6 +37,68 @@ export default function DeployStepContent({
         setShowWalletError(false);
         onDeploy();
     };
+
+    // Show error modal if deployment failed
+    React.useEffect(() => {
+        if (deploymentError) {
+            const isNetworkError = deploymentError.includes('network') || 
+                                   deploymentError.includes('Network') ||
+                                   deploymentError.includes('switched');
+            
+            Modal.error({
+                title: 'Deployment Failed',
+                icon: <ExclamationCircleOutlined />,
+                content: (
+                    <div>
+                        <Paragraph>
+                            <strong>Error:</strong> {deploymentError}
+                        </Paragraph>
+                        {isNetworkError && (
+                            <Alert
+                                message="Network Issue Detected"
+                                description="Your wallet may have switched networks. We can attempt to fix this automatically by switching to the correct network and retrying."
+                                type="warning"
+                                showIcon
+                                style={{ marginBottom: 16, marginTop: 16 }}
+                            />
+                        )}
+                        <Paragraph type="secondary" style={{ marginTop: 16 }}>
+                            Troubleshooting steps:
+                        </Paragraph>
+                        <ul style={{ paddingLeft: 20 }}>
+                            <li>Ensure you're connected to the correct network (check your .env NEXT_PUBLIC_NETWORK setting)</li>
+                            <li>Verify your wallet has sufficient balance for gas fees</li>
+                            <li>Try disconnecting and reconnecting your wallet</li>
+                            {!isNetworkError && <li>Refresh the page and try again</li>}
+                        </ul>
+                    </div>
+                ),
+                footer: [
+                    <Button key="close" onClick={() => Modal.destroyAll()}>
+                        Close
+                    </Button>,
+                    isNetworkError && (
+                        <Button 
+                            key="retry" 
+                            type="primary" 
+                            loading={isRetrying}
+                            onClick={async () => {
+                                setIsRetrying(true);
+                                try {
+                                    await onRetry?.();
+                                } finally {
+                                    setIsRetrying(false);
+                                }
+                            }}
+                        >
+                            Retry Deployment
+                        </Button>
+                    )
+                ].filter(Boolean),
+                width: 600
+            });
+        }
+    }, [deploymentError, onRetry]);
 
     if (loading) {
         return (

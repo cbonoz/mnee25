@@ -309,6 +309,21 @@ export const handleContractError = (error, operationName = 'transaction') => {
 		throw new Error('Transaction was rejected by user.');
 	}
 
+	// Wallet authorization errors (user hasn't authorized the method/account)
+	if (errorMessage.includes('not been authorized') || 
+	    errorMessage.includes('UnauthorizedProvider') ||
+	    error.code === 'UNAUTHORIZED' ||
+	    errorMessage.includes('User denied') ||
+	    errorMessage.includes('Unauthorized')) {
+		throw new Error(
+			'Your wallet does not have permission to perform this action. Please ensure:\n' +
+			'1. Your wallet is fully connected and visible\n' +
+			'2. You have authorized this site to use your wallet\n' +
+			'3. Try disconnecting and reconnecting your wallet\n' +
+			'4. If using WalletConnect, ensure your mobile app is connected and responsive'
+		);
+	}
+
 	// MetaMask-specific errors
 	if (errorMessage.includes('Internal JSON-RPC error') || errorMessage.includes('internal error')) {
 		if (operationName && operationName.includes('approve')) {
@@ -402,6 +417,20 @@ export const handleContractError = (error, operationName = 'transaction') => {
 	) {
 		throw new Error(
 			'Token transfer failed. Please check your USDFC balance and allowance. If the problem persists, try resetting the token allowance to 0 first.'
+		);
+	}
+
+	// Network changed errors (critical - catches sepolia/mainnet switching)
+	if (errorMessage.includes('underlying network changed') || error.code === 'NETWORK_ERROR') {
+		// Extract the network info if available
+		let networkInfo = '';
+		if (error.event === 'changed') {
+			const expected = error.network?.name || 'unknown';
+			const detected = error.detectedNetwork?.name || 'unknown';
+			networkInfo = ` Your wallet switched from ${expected} to ${detected}.`;
+		}
+		throw new Error(
+			`Your wallet's network changed during the transaction.${networkInfo} Please ensure you're connected to the correct network and try again.`
 		);
 	}
 
