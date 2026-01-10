@@ -14,11 +14,17 @@ import Logo from './Logo';
 import Navigation from './Navigation';
 import { Theme } from '@ant-design/cssinjs';
 import { antdTheme, colors } from '../theme/colors';
+import { sepolia, mainnet } from 'viem/chains';
 
+// Helper to get the network name at runtime
+const getNetworkName = () => {
+	return process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? mainnet.name : sepolia.name;
+};
 
 function UiLayoutWrapper({ children }) {
-       const pathname = usePathname();
-       const isOfferDetails = pathname && pathname.startsWith('/offer/');
+	const pathname = usePathname();
+	const isOfferDetails = pathname && pathname.startsWith('/offer/');
+	const networkName = getNetworkName();
        return (
 	       <StyledComponentsRegistry>
 		       <ConfigProvider theme={antdTheme}>
@@ -50,7 +56,7 @@ function UiLayoutWrapper({ children }) {
 					       <Footer style={{ textAlign: 'center' }}>
 						       <hr />
 						       <br />
-						       {APP_NAME} ©2025. {ACTIVE_CHAIN.name} network. <a href="/about">About</a>
+					       {APP_NAME} ©2025. {networkName} network. <a href="/about">About</a>
 					       </Footer>
 				       )}
 			       </Layout>

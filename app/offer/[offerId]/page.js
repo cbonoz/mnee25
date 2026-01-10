@@ -127,7 +127,7 @@ export default function OfferPage({ params }) {
 
     // Gradient background should cover the entire viewport, including under the footer
     return (
-        <div style={{ minHeight: '100vh', width: '100vw', background: 'linear-gradient(135deg, #ec348b 0%, #722ed1 100%)', padding: 0, overflowX: 'hidden', margin: 0, position: 'relative', zIndex: 0 }}>
+        <div style={{ minHeight: '100vh', width: '100vw', background: 'linear-gradient(135deg, #6b9eff 0%, #cceaf4 100%)', padding: 0, overflowX: 'hidden', margin: 0, position: 'relative', zIndex: 0 }}>
             {/* Owner View Tag at Top */}
             {isOwner && (
                 <div style={{ width: '100%', background: 'rgba(255, 215, 0, 0.12)', padding: '12px 0', textAlign: 'center', zIndex: 10 }}>

@@ -10,20 +10,34 @@ import {
   createConfig,
   WagmiProvider,
 } from 'wagmi';
-import {siteConfig} from '../constants'
+import {siteConfig, ACTIVE_CHAIN} from '../constants'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
 import { sepolia, mainnet } from 'viem/chains';
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
-const config = createConfig({
-  chains: [mainnet, sepolia],
-  multiInjectedProviderDiscovery: false,
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-});
+// Get the appropriate chains based on environment
+const getSupportedChains = (isMain) => {
+  return isMain ? [mainnet] : [sepolia];
+};
+
+// Create config that respects the environment
+const wagmiConfig = (() => {
+  const isMain = process.env.NEXT_PUBLIC_NETWORK === 'mainnet';
+  const defaultChainId = isMain ? mainnet.id : sepolia.id;
+  
+  // Always include both chains in Wagmi config for proper connector support
+  // but set the default to the appropriate one
+  return createConfig({
+    chains: [mainnet, sepolia],
+    defaultChainId: defaultChainId,
+    multiInjectedProviderDiscovery: false,
+    transports: {
+      [mainnet.id]: http(),
+      [sepolia.id]: http(),
+    },
+  });
+})();
 
 const queryClient = new QueryClient();
 
@@ -40,7 +54,7 @@ const DynamicWrapper = ({ children }) => {
         borderRadius: 8,
       }}
     >
-      <WagmiProvider config={config}>
+      <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <DynamicWagmiConnector>
             {children}

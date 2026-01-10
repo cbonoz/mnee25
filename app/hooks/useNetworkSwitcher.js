@@ -3,6 +3,16 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { ACTIVE_CHAIN } from '../constants';
+import { sepolia, mainnet } from 'viem/chains';
+
+// Helper to get the required chain at runtime
+const getRequiredChain = () => {
+  const networkEnv = process.env.NEXT_PUBLIC_NETWORK;
+  if (networkEnv === 'mainnet') {
+    return mainnet;
+  }
+  return sepolia;
+};
 
 export const useNetworkSwitcher = () => {
   const { primaryWallet } = useDynamicContext();
@@ -10,6 +20,9 @@ export const useNetworkSwitcher = () => {
   const [isChecking, setIsChecking] = useState(false);
   const [hasChecked, setHasChecked] = useState(false);
   const checkTimeoutRef = useRef(null);
+  
+  // Get the required chain at runtime, not at module load time
+  const requiredChain = getRequiredChain();
 
   const checkNetwork = useCallback(async () => {
     if (!primaryWallet) {
@@ -45,9 +58,9 @@ export const useNetworkSwitcher = () => {
         return false;
       }
       
-      console.log('Current chain ID:', currentChainId, 'Required chain ID:', ACTIVE_CHAIN.id);
+      console.log('Current chain ID:', currentChainId, 'Required chain ID:', requiredChain.id);
       
-      const isCorrect = currentChainId === ACTIVE_CHAIN.id;
+      const isCorrect = currentChainId === requiredChain.id;
       console.log('Network is correct:', isCorrect);
       
       // Only update state if the value actually changed to prevent unnecessary re-renders
@@ -71,14 +84,14 @@ export const useNetworkSwitcher = () => {
 
     setIsChecking(true);
     try {
-      const targetChainId = ACTIVE_CHAIN.id;
+      const targetChainId = requiredChain.id;
       console.log('Attempting to switch to network:', targetChainId);
       
       if (primaryWallet.connector.supportsNetworkSwitching()) {
         // Try different approaches for network switching
         try {
           await primaryWallet.switchNetwork(targetChainId);
-          console.log(`Success! Network switched to ${ACTIVE_CHAIN.name} (${targetChainId})`);
+          console.log(`Success! Network switched to ${requiredChain.name} (${targetChainId})`);
         } catch (switchError) {
           console.log('First switch attempt failed, trying alternative method:', switchError);
           
@@ -86,13 +99,13 @@ export const useNetworkSwitcher = () => {
           if (primaryWallet.connector.switchNetwork) {
             try {
               await primaryWallet.connector.switchNetwork(targetChainId);
-              console.log(`Success! Network switched via connector to ${ACTIVE_CHAIN.name} (${targetChainId})`);
+              console.log(`Success! Network switched via connector to ${requiredChain.name} (${targetChainId})`);
             } catch (connectorError) {
               console.log('Connector switch also failed:', connectorError);
-              throw new Error(`Unable to switch networks automatically. Please manually switch your wallet to ${ACTIVE_CHAIN.name} (Chain ID: ${targetChainId})`);
+              throw new Error(`Unable to switch networks automatically. Please manually switch your wallet to ${requiredChain.name} (Chain ID: ${targetChainId})`);
             }
           } else {
-            throw new Error(`Your wallet doesn't support automatic network switching. Please manually switch to ${ACTIVE_CHAIN.name} (Chain ID: ${targetChainId})`);
+            throw new Error(`Your wallet doesn't support automatic network switching. Please manually switch to ${requiredChain.name} (Chain ID: ${targetChainId})`);
           }
         }
         
@@ -101,7 +114,7 @@ export const useNetworkSwitcher = () => {
         await checkNetwork();
         return true;
       } else {
-        throw new Error(`Your wallet doesn't support network switching. Please manually switch to ${ACTIVE_CHAIN.name} (Chain ID: ${targetChainId})`);
+        throw new Error(`Your wallet doesn't support network switching. Please manually switch to ${requiredChain.name} (Chain ID: ${targetChainId})`);
       }
     } catch (error) {
       console.error('Error switching network:', error);
@@ -109,7 +122,7 @@ export const useNetworkSwitcher = () => {
     } finally {
       setIsChecking(false);
     }
-  }, [primaryWallet, checkNetwork]);
+  }, [primaryWallet, checkNetwork, requiredChain]);
 
   const ensureCorrectNetwork = useCallback(async () => {
     const isCorrect = await checkNetwork();
@@ -120,15 +133,15 @@ export const useNetworkSwitcher = () => {
         // Check again after switching
         const isNowCorrect = await checkNetwork();
         if (!isNowCorrect) {
-          throw new Error(`Please manually switch your wallet to ${ACTIVE_CHAIN.name} (Chain ID: ${ACTIVE_CHAIN.id}) to continue.`);
+          throw new Error(`Please manually switch your wallet to ${requiredChain.name} (Chain ID: ${requiredChain.id}) to continue.`);
         }
       } catch (switchError) {
         console.log('Auto-switch failed:', switchError);
-        throw new Error(`Please switch your wallet to ${ACTIVE_CHAIN.name} (Chain ID: ${ACTIVE_CHAIN.id}) to continue. Auto-switch failed: ${switchError.message}`);
+        throw new Error(`Please switch your wallet to ${requiredChain.name} (Chain ID: ${requiredChain.id}) to continue. Auto-switch failed: ${switchError.message}`);
       }
     }
     return isCorrectNetwork;
-  }, [checkNetwork, switchToRequiredNetwork, isCorrectNetwork]);
+  }, [checkNetwork, switchToRequiredNetwork, isCorrectNetwork, requiredChain]);
 
   // Only check network when wallet changes and we haven't checked yet
   useEffect(() => {
@@ -165,6 +178,6 @@ export const useNetworkSwitcher = () => {
     switchToRequiredNetwork,
     ensureCorrectNetwork,
     checkNetwork,
-    requiredNetwork: ACTIVE_CHAIN
+    requiredNetwork: requiredChain
   };
 };

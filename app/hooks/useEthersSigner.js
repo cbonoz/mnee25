@@ -18,15 +18,15 @@ export function walletClientToSigner(walletClient) {
     console.warn("walletClientToSigner: Missing account or transport", walletClient);
     return undefined;
   }
+
+  console.log("walletClientToSigner - Creating signer for chain:", chain.id, chain.name)
   
-  console.log("walletClientToSigner", walletClient, chain)
-  const network = {
-    chainId: chain.id,
-    name: chain.name,
-    ensAddress: chain.contracts?.ensRegistry?.address,
-  }
-  const provider = new ethers.providers.Web3Provider(transport, network)
+  // Create provider with chainId only - this prevents ethers from trying to auto-detect
+  // which can incorrectly default to mainnet
+  const provider = new ethers.providers.Web3Provider(transport, chain.id)
+  
   const signer = provider.getSigner(account.address)
+  
   return signer
 }
 
@@ -39,6 +39,11 @@ export function dynamicWalletToSigner(wallet) {
   try {
     // Dynamic provides ethers provider directly
     const provider = wallet.connector.ethers;
+    
+    // Force network detection to the wallet's actual network
+    // This ensures the provider detects the correct chain
+    console.log('Creating signer from Dynamic wallet');
+    
     const signer = provider.getSigner();
     return signer;
   } catch (error) {

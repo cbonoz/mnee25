@@ -13,7 +13,7 @@ import { colors } from './theme/colors';
 const CHECKLIST_ITEMS = [
 	'One-click form collection and payments for anyone',
 	'Decentralized, trustless payments using MNEE tokens',
-	'Wallet-based authentication via Dynamic - no accounts needed'
+	'Wallet-based authentication - no separate accounts needed'
 ];
 
 const Home = () => {

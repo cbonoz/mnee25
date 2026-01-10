@@ -464,7 +464,7 @@ function OwnerActionsCard({ offerData, onUpdate }) {
                             icon={<WalletOutlined />}
                             onClick={handleWithdrawFunds}
                             loading={loading}
-                            style={{ backgroundColor: '#722ed1', borderColor: '#722ed1', color: 'white', minWidth: 180 }}
+                            style={{ backgroundColor: '#6b9eff', borderColor: '#6b9eff', color: 'white', minWidth: 180 }}
                         >
                             Withdraw Funds ({contractBalance} MNEE)
                         </Button>

@@ -1,7 +1,13 @@
 import { ethers } from 'ethers';
 import { OPENQUOTE_CONTRACT } from './metadata';
 import { formatDate, handleContractError } from '.';
-import { MNEE_TOKEN_ADDRESS, ACTIVE_CHAIN } from '../constants';
+import { MNEE_TOKEN_ADDRESS } from '../constants';
+import { sepolia, mainnet } from 'viem/chains';
+
+// Helper to get the required chain at runtime (not at module load time)
+const getActiveChain = () => {
+  return process.env.NEXT_PUBLIC_NETWORK === 'mainnet' ? mainnet : sepolia;
+};
 
 // Deploy contract function - still needed for creating new offers with ethers
 export async function deployContract(
@@ -20,16 +26,19 @@ export async function deployContract(
             throw new Error('No signer available. Please connect your wallet.');
         }
 
+        // Get the active chain at runtime
+        const activeChain = getActiveChain();
+
         // Get the current network from the signer
         const network = await signer.provider.getNetwork();
         console.log('Deploying to network:', network.name, network.chainId);
 
         // Check if we're on the expected network
-        if (network.chainId !== ACTIVE_CHAIN.id) {
+        if (network.chainId !== activeChain.id) {
             const currentNetworkName = network.chainId === 11155111 ? 'Sepolia Testnet' : 
                                      network.chainId === 1 ? 'Ethereum Mainnet' : 
                                      `Unknown (${network.chainId})`;
-            throw new Error(`Wrong network! Expected ${ACTIVE_CHAIN.name} (${ACTIVE_CHAIN.id}) but connected to ${currentNetworkName}. Please switch your wallet to ${ACTIVE_CHAIN.name}.`);
+            throw new Error(`Wrong network! Expected ${activeChain.name} (${activeChain.id}) but connected to ${currentNetworkName}. Please switch your wallet to ${activeChain.name}.`);
         }
 
         // Deploy contract with ethers

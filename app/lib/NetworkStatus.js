@@ -5,8 +5,8 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react-core';
 import { useNetworkSwitcher } from '../hooks/useNetworkSwitcher';
 import { useState, useEffect } from 'react';
 
-const NetworkStatus = ({ showSwitcher = true, style = {} }) => {
-  const { primaryWallet } = useDynamicContext();
+const NetworkStatus = ({ showSwitcher = true, style = {}, showWalletPrompt = false }) => {
+  const { primaryWallet, setShowAuthFlow } = useDynamicContext();
   const { 
     isCorrectNetwork, 
     isChecking, 
@@ -16,6 +16,7 @@ const NetworkStatus = ({ showSwitcher = true, style = {} }) => {
   
   // Add local state to prevent flashing
   const [isVisible, setIsVisible] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
 
   // Only show component after initial check is complete
   useEffect(() => {
@@ -28,23 +29,24 @@ const NetworkStatus = ({ showSwitcher = true, style = {} }) => {
     }
   }, [primaryWallet]);
 
-  // Show wallet connection message if no wallet is connected
-  if (!primaryWallet) {
+  // Show wallet connection message only if explicitly prompted and no wallet is connected
+  if (!primaryWallet && !isDismissed && showWalletPrompt) {
     return (
-      <div style={style}>
+      <div style={{ ...style, width: '100%' }}>
         <Alert 
           message="Wallet Not Connected"
           description="You need to connect your wallet to deploy the smart contract. Please connect your wallet to continue."
           type="error" 
           showIcon
+          closable
+          onClose={() => setIsDismissed(true)}
+          style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
           action={
             <Button 
               size="small" 
               type="primary" 
-              onClick={() => {
-                // Dynamic's context will show login when triggered
-                document.querySelector('[data-testid="dynamic-login-button"]')?.click();
-              }}
+              onClick={() => setShowAuthFlow(true)}
+              style={{ marginLeft: '16px', flexShrink: 0 }}
             >
               Connect Wallet
             </Button>
