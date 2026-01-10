@@ -101,10 +101,10 @@ MNEE_TOKEN_ADDRESS=0x8ccedbAe4916b79da7F3F612EfB2EB93A2bFD6cF
 | Revenue Stream | Description |
 |---------------|-------------|
 | **Transaction Fees** | 0.5-1% fee on contract creation (much lower than Upwork/Fiverr) |
-| **Premium Features** | $10-50/month for analytics, branding, support, bulk tools |
+| **Premium Features** | Analytics, branding, support, bulk tools |
 | **Payment Processing** | 0.25% fee on invoices or high-value transactions |
 | **Value-Added Services** | Legal templates, dispute resolution, insurance, integrations |
-| **Data Insights & Analytics** | Market insights, benchmarking, matching algorithms |
+| **Data Insights & Analytics** | Market insights, benchmarking, ads |
 
 **Why this model?**
 - Lower fees and more transparency than traditional platforms
