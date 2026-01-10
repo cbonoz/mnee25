@@ -108,7 +108,7 @@ export default function PaymentTermsForm() {
                         rules={[{ required: true, message: 'Please enter amount' }]}
                     >
                         <InputNumber
-                            min={0.01}
+                            min={0}
                             precision={2}
                             placeholder="100.00"
                             size="large"

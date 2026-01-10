@@ -142,8 +142,10 @@ contract OpenQuoteContract is ReentrancyGuard {
         }
         
         // Transfer payment
-        require(paymentToken.transferFrom(msg.sender, address(this), paymentAmount), "Payment transfer failed");
-        paidAmount = paymentAmount;
+        if (paymentAmount > 0) {
+            require(paymentToken.transferFrom(msg.sender, address(this), paymentAmount), "Payment transfer failed");
+            paidAmount = paymentAmount;
+        }
         
         if (offerMetadata.depositAmount > 0) {
             isDepositPaid = true;
@@ -220,7 +222,6 @@ contract OpenQuoteContract is ReentrancyGuard {
     // Mark offer as completed (owner only) - this also accepts the pending client
     function completeOffer() external onlyOwner {
         require(pendingClient != address(0), "No pending client request");
-        require(paidAmount > 0, "No payment received");
         require(!isCompleted, "Offer already completed");
         
         // Accept the pending client
