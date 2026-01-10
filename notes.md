@@ -22,19 +22,9 @@ Service providers, freelancers, and small businesses often struggle to:
 - Verify approvals, deposits, or milestone completion in a trustless, transparent way  
 - Handle authentication and identity verification without complex account setups  
 
+Payment platforms exist however they often charge high fees (2.9%-10%+ per transaction), centralize trust, and require complex account setups and subscription plans.
+
 This friction leads to slower response times, missed opportunities, and disputes between clients and service providers.  
-
----
-
-## Where current solutions fall short
-Existing solutions partially address these problems, but often have limitations or drawbacks:
-
-| Existing Solution | Shortcomings |
-|-----------------|--------------|
-| **Google Forms + PayPal/Stripe** | Form submission and payment are separate; no trustless link between submission and payment; no automated verification |
-| **Typeform + Stripe** | No on-chain verification; payments are off-chain; limited automation for approvals or milestone tracking |
-| **Freelance marketplaces (Fiverr, Upwork)** | High fees; platform controls the workflow; limited transparency; providers can’t fully customize contract/payment logic |
-| **Smart contract marketplaces (OpenLaw, Clause.io)** | Require technical knowledge; onboarding and wallet setup is a barrier; no simple one-click form collection for clients |
 
 ---
 

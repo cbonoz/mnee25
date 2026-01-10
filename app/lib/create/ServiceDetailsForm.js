@@ -33,7 +33,7 @@ const DEMO_DATA = {
     title: "Custom E-commerce Website Development",
     category: "Web Development",
     description: "I will create a fully responsive, modern e-commerce website using React and Node.js. The website will include user authentication, payment processing, product catalog, shopping cart, and admin dashboard. All code will be clean, well-documented, and optimized for performance.",
-    deliverables: "- Fully responsive e-commerce website\n- User registration and authentication system\n- Payment gateway integration (Stripe/PayPal)\n- Product catalog with search and filtering\n- Shopping cart and checkout process\n- Admin dashboard for product management\n- SEO optimization\n- 2 rounds of revisions\n- 30 days of post-launch support",
+    deliverables: "- Fully responsive e-commerce website\n- User registration and authentication system\n- Payment gateway integration\n- Product catalog with search and filtering\n- Shopping cart and checkout process\n- Admin dashboard for product management\n- SEO optimization\n- 2 rounds of revisions\n- 30 days of post-launch support",
     timeline: "3-4 weeks",
     
     // Payment Terms

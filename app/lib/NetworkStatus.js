@@ -28,8 +28,34 @@ const NetworkStatus = ({ showSwitcher = true, style = {} }) => {
     }
   }, [primaryWallet]);
 
-  // Don't show anything if no wallet is connected or not yet visible
-  if (!primaryWallet || !isVisible) {
+  // Show wallet connection message if no wallet is connected
+  if (!primaryWallet) {
+    return (
+      <div style={style}>
+        <Alert 
+          message="Wallet Not Connected"
+          description="You need to connect your wallet to deploy the smart contract. Please connect your wallet to continue."
+          type="error" 
+          showIcon
+          action={
+            <Button 
+              size="small" 
+              type="primary" 
+              onClick={() => {
+                // Dynamic's context will show login when triggered
+                document.querySelector('[data-testid="dynamic-login-button"]')?.click();
+              }}
+            >
+              Connect Wallet
+            </Button>
+          }
+        />
+      </div>
+    );
+  }
+
+  // Don't show anything if not yet visible
+  if (!isVisible) {
     return null;
   }
 
