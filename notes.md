@@ -7,11 +7,13 @@ OpenQuote
 
 Transparency, quotes, and payments on-chain for service businesses on MNEE
 
-Demo: https://openquote.vercel.app (Sepolia)
+Demo: https://openquote.vercel.app (Mainnet)
 
 Example offer page: https://openquote.vercel.app/offer/0xb387367720ae37E132DF0E0fDEC84A9b4074A83C (Sepolia)
 
-Demo video: https://youtu.be/9yo8MYGci9s
+Demo video: 
+
+Example testnet contract: https://sepolia.etherscan.io/address/0x32DA443bab21B5B21DbD42a1575488878D21Ce16
 
 ## Problem
 
