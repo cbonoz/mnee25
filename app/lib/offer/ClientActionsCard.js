@@ -260,7 +260,7 @@ export default function ClientActionsCard({ offerData, onUpdate }) {
                             <Text strong>Transaction Hash:</Text>
                             <br />
                             <a 
-                                href={`https://sepolia.etherscan.io/tx/${transactionHash}`}
+                                href={`${getExplorerLink(transactionHash, 'tx')}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 style={{ fontSize: '12px', wordBreak: 'break-all' }}
