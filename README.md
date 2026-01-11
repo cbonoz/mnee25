@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src="https://raw.githubusercontent.com/cbonoz/mnee25/refs/heads/main/public/logo.png" width=600 />
+    <img src="https://raw.githubusercontent.com/cbonoz/mnee25/refs/heads/main/public/logo.png" alt="OpenQuote Logo" width="600" />
 </p>
 
 OpenQuote
