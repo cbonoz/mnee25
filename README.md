@@ -9,7 +9,7 @@ Transparency, quotes, and payments on-chain for service businesses.
 
 Demo: https://openquote.vercel.app (Mainnet, facilitates payments via MNEE)
 
-Demo video: 
+Demo video: https://youtu.be/kZUGiNiC6Rs
 
 Example deployed contract with completed service payment: https://etherscan.io/address/0xf7ba7656365459ed930b01abb32417c437c6693c
 
